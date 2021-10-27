@@ -1,11 +1,23 @@
 .container{
     display: flex;
+    flex-direction: column;
     margin-left: 400px;
     margin-top: 200px;
 }
 
 button{
     padding: 31px 16px;
+}
+
+#screen{
+    display: flex;
+    background-color: gray;
+    height: 100px;
+    width: 300px;
+    color: white;
+    align-items: flex-end;
+    justify-content: end;
+    padding-right: 10px;
 }
 
 .numbers{
