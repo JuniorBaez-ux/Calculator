@@ -33,6 +33,10 @@ button{
     /* border: 1px solid #ccc; */
 }
 
+.number{
+    gap: 10px;
+}
+
 .row4{
     display: flex;
     flex-direction: column;
