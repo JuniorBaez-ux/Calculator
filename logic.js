@@ -3,11 +3,12 @@ const screen = document.querySelector("#screen");
 const buttons = document.querySelectorAll("button");;
 const clear = document.querySelector("#clearbtn");
 const deleteLast = document.querySelector("#deletebtn");
+const symbols = document.querySelector(".row4");
 const rows1 = Array.from(document.querySelector(".row1").innerHTML.match(/[0-9]/g));
 const rows2 = Array.from(document.querySelector(".row2").innerHTML.match(/[0-9]/g));
 const rows3 = Array.from(document.querySelector(".row3").innerHTML.match(/[0-9]/g));
 const rows4 = Array.from(document.querySelector(".row4").textContent.match(/[-+*/]/g));
-const equal = Array.from(document.querySelector("#equal").innerHTML);
+const equal = document.querySelector("#equal");
 let digits = Array.from(Array.from(rows1 + rows2 + rows3 + rows4).sort().toString().replaceAll(",", ""));
 screen.textContent = "";
 
@@ -86,11 +87,28 @@ function displayOnScreen(e){
     }
 }
 
-function calculate (){
-    let a = parseInt(screen.textContent);
-    let b = parseInt(screen.textContent);
-    let operator = screen.textContent.slice(-1);
-    operate(operator, a, b);
+function calculate(){
+    let operator = Array.from(screen.textContent.match(/[-+*/]/g));
+    let number2 = screen.textContent.match(/[0-9]/g).toString();
+    let results = 0;
+    for (let i = 0; i < number2.length; i++) {
+        if(operator[0] == "+"){
+            results =  operate(operator[0], parseInt(number2[0]), parseInt(number2[i]));
+        }
+        if(operator[0] == "-"){
+            results =  operate(operator[0], parseInt(number2[0]), parseInt(number2[i]));
+        }
+        if(operator[0] == "*"){
+            results =  operate(operator[0], parseInt(number2[0]), parseInt(number2[i]));
+        }
+        if(operator[0] == "/"){
+            results =  operate(operator[0], parseInt(number2[0]), parseInt(number2[i]));
+        }
+    }
+    screen.textContent = results;
+    number1 = [];
+    number1.push(results);
+    number2 = [];
 }
 
 function clearScreen(){
@@ -103,6 +121,17 @@ function deleteLastDigit(){
     number1.pop();
 }
 
+// function joinArray(){
+//     number2 = Array.from(screen.textContent);
+//     number2.join("");
+    
+// }
+
+// function joinArray2(){
+//     number3 = Array.from(screen.textContent);
+//     number3.join("");
+// }
+
 buttons.forEach((button) => {    
     button.addEventListener("click" , function(e){
         displayOnScreen(e.target.textContent);
@@ -112,6 +141,11 @@ buttons.forEach((button) => {
 clear.addEventListener("click", clearScreen);
 
 deleteLast.addEventListener("click", deleteLastDigit);
+
+// symbols.addEventListener("click", joinArray);
+
+equal.addEventListener("click", calculate);
+
 
 function add(a, b){
     return a + b;
@@ -131,13 +165,13 @@ function divide(a, b){
 
 function operate(operator, a, b){
     if (operator == "+") {
-        add(a, b);
+        return add(a, b);
     }else if (operator == "-"){
-        subtract(a, b);
+        return subtract(a, b);
     }else if (operator == "*"){
-        multiply(a, b);
+        return multiply(a, b);
     }else if (operator == "/"){
-        divide(a, b);
+        return divide(a, b);
     }else{
         window.alert("Invalid operator");
     }
